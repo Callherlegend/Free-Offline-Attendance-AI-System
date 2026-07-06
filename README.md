@@ -7,14 +7,19 @@ modèle **InsightFace buffalo_l** (détection SCRFD + embeddings ArcFace), base 
 ## Fonctionnalités
 
 - Enrôlement par webcam ou photo (anti-doublon : un visage ne peut pas être inscrit deux fois)
+![Enrollment](screenshots/enroll.jpg)
 - Pointage par webcam, photo, ou **caméra IP** (flux lu côté serveur via OpenCV)
+![Checkin](screenshots/checkin.jpg)
 - Reconnaissance **multi-visages** (photos de groupe)
 - **Une présence par personne et par jour** (les passages répétés vont dans un journal `logs`)
 - Rejet des personnes inconnues par **seuil de similarité calibré expérimentalement**
 - Tableau de bord : enrôlés / présents / absents du jour
+![Dashboard](screenshots/dashboard.jpg)
 - Statistiques quotidiennes et mensuelles + **export CSV**
+![Stats](screenshots/stats.jpg)
 - Annonce vocale **optionnelle** (désactivée par défaut — confidentialité)
 - Thème jour/nuit, interface FR/EN
+![Settings](settings.jpg)
 - Droit à l'effacement : suppression d'une personne et de toutes ses données
 
 ## Architecture
@@ -135,8 +140,6 @@ frontend, **InsightFace buffalo_l** model (SCRFD face detection + ArcFace embedd
 
 * Enrollment via webcam or photo (duplicate prevention: the same face cannot be enrolled twice)
 ![Enrollment](screenshots/enroll.jpg)
-
-
 * Attendance marking via webcam, photo, or **IP camera** (video stream processed server-side with OpenCV)
 ![Checkin](screenshots/checkin.jpg)
 * **Multi-face recognition** (group photos supported)
@@ -148,7 +151,7 @@ frontend, **InsightFace buffalo_l** model (SCRFD face detection + ArcFace embedd
 ![Stats](screenshots/stats.jpg)
 * Optional **voice announcement** (disabled by default for privacy)
 * Light/Dark theme, French/English interface
-![Settings](settings.png)
+![Settings](settings.jpg)
 * Right to erasure: delete a person and all associated data
 
 
