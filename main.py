@@ -1,15 +1,3 @@
-# =============================================================================
-# main.py — API de pointage par reconnaissance faciale (version finale)
-# Stack : FastAPI + InsightFace (buffalo_l) + SQLite
-#
-# Documentation officielle :
-#   FastAPI (fichiers, formulaires)  : https://fastapi.tiangolo.com/tutorial/request-files/
-#   FastAPI (réponses personnalisées): https://fastapi.tiangolo.com/advanced/custom-response/
-#   InsightFace                      : https://github.com/deepinsight/insightface/tree/master/python-package
-#   sqlite3                          : https://docs.python.org/3/library/sqlite3.html
-#   OpenCV VideoCapture (caméra IP)  : https://docs.opencv.org/4.x/d8/dfe/classcv_1_1VideoCapture.html
-# =============================================================================
-
 import sqlite3
 from datetime import datetime, date
 
@@ -20,29 +8,29 @@ from fastapi.responses import PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from insightface.app import FaceAnalysis
 
-# ----------------------------- Réglages --------------------------------------
-# Seuil validé expérimentalement : même personne 0.786-0.797, inconnu 0.299.
+#  Réglages 
+# Seuil validé expérimentalement() même personne 0.786-0.797, inconnu 0.299)
 SEUIL_COSINUS = 0.40
 DB = "attendance.db"
 
-# --------------------- Modèle : chargé UNE SEULE FOIS ------------------------
+#  Modèle(chargé UNE SEULE FOIS )
 face_app = FaceAnalysis(name="buffalo_l", providers=["CPUExecutionProvider"])
 face_app.prepare(ctx_id=-1, det_size=(640, 640))
 
 
 def read_upload(file_bytes: bytes):
-    """Octets uploadés -> image OpenCV (BGR)."""
+    #Octets uploadés -> image OpenCV (BGR)
     arr = np.frombuffer(file_bytes, dtype=np.uint8)
     return cv2.imdecode(arr, cv2.IMREAD_COLOR)
 
 
 def all_embeddings(img_bgr):
-    """TOUS les visages de l'image -> [(embedding, bbox), ...] (photos de groupe)."""
+    #TOUS les visages de l'image -> [(embedding, bbox), ...] (photos de groupe)
     return [(f.normed_embedding, f.bbox.tolist()) for f in face_app.get(img_bgr)]
 
 
 def largest_embedding(img_bgr):
-    """Le PLUS GRAND visage seulement (enrôlement : une personne à la fois)."""
+    #Le PLUS GRAND visage seulement (enrôlement : une personne à la fois)
     faces = face_app.get(img_bgr)
     if not faces:
         return None
@@ -50,10 +38,10 @@ def largest_embedding(img_bgr):
     return f.normed_embedding
 
 
-# ----------------------------- Base de données -------------------------------
-# persons   : nom + embedding (JAMAIS la photo — minimisation RGPD)
-# presences : registre officiel, UNE ligne par personne et par jour (UNIQUE)
-# logs      : journal de TOUTES les reconnaissances (audit)
+#  Base de données 
+# persons(nom + embedding (JAMAIS la photo — minimisation RGPD))
+# presences(registre officiel, UNE ligne par personne et par jour (UNIQUE))
+# logs(journal de TOUTES les reconnaissances (audit))
 def init_db():
     con = sqlite3.connect(DB)
     con.execute("""CREATE TABLE IF NOT EXISTS persons (
@@ -79,9 +67,9 @@ init_db()
 app = FastAPI(title="Attendance AI")
 
 
-# ------------------- Cœur : reconnaissance d'une image -----------------------
+# reconnaissance d'une image 
 # Factorisé dans UNE fonction, réutilisée par /recognize (upload/webcam)
-# et /recognize_ip (caméra IP) : même logique, deux sources d'image.
+# et /recognize_ip (caméra IP) même logique deux sources d'image.
 def recognize_image(img_bgr):
     detections = all_embeddings(img_bgr)
     if not detections:
@@ -109,7 +97,7 @@ def recognize_image(img_bgr):
 
         first_today = False
         if known:
-            cur = con.execute(   # INSERT OR IGNORE : la contrainte UNIQUE fait le tri
+            cur = con.execute(   # INSERT OR IGNORE (la contrainte UNIQUE fait le tri)
                 "INSERT OR IGNORE INTO presences (name, date, timestamp) VALUES (?,?,?)",
                 (display, today, now))
             first_today = cur.rowcount == 1
@@ -122,7 +110,7 @@ def recognize_image(img_bgr):
     return {"faces": results}
 
 
-# ----------------------------- Routes -----------------------------------------
+#  Routes 
 @app.post("/enroll")
 async def enroll(name: str = Form(...), file: UploadFile = None):
     """Inscription. Protections : nom UNIQUE (SQL) + anti-doublon de VISAGE
@@ -270,6 +258,5 @@ def delete_person(name: str):
     return {"ok": n > 0}
 
 
-# Frontend React buildé, servi par FastAPI (même origine -> pas de CORS, hors ligne).
-# DOIT rester la dernière déclaration.
+# Frontend React buildé, servi par FastAPI (même origine,pas de CORS, hors ligne).
 app.mount("/", StaticFiles(directory="frontend/dist", html=True), name="static")

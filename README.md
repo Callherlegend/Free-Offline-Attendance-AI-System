@@ -19,7 +19,7 @@ modèle **InsightFace buffalo_l** (détection SCRFD + embeddings ArcFace), base 
 
 ## Architecture
 
-```
+
 [ Navigateur : React (frontend/dist, servi par FastAPI) ]
         │  images (multipart)         ▲  JSON
         ▼                             │
@@ -27,7 +27,7 @@ modèle **InsightFace buffalo_l** (détection SCRFD + embeddings ArcFace), base 
         │                             │
         ▼                             ▼
 [ SQLite attendance.db : persons / presences / logs ]
-```
+
 
 - Le navigateur capture l'image (webcam ou fichier) et l'envoie à l'API.
 - L'API détecte les visages, calcule les embeddings, compare (similarité cosinus,
@@ -131,22 +131,30 @@ A **100% offline** facial recognition attendance management system
 designed for schools and businesses. **FastAPI** (Python) backend, **React**
 frontend, **InsightFace buffalo_l** model (SCRFD face detection + ArcFace embeddings), **SQLite** database.
 
-## Features
+## Features & screenshots
 
 * Enrollment via webcam or photo (duplicate prevention: the same face cannot be enrolled twice)
+![Enrollment](screenshots/enroll.jpg)
+
+
 * Attendance marking via webcam, photo, or **IP camera** (video stream processed server-side with OpenCV)
+![Checkin](screenshots/checkin.jpg)
 * **Multi-face recognition** (group photos supported)
 * **One attendance record per person per day** (repeated detections are stored in the `logs` table)
 * Unknown person rejection using an **experimentally calibrated similarity threshold**
 * Dashboard: enrolled / present / absent today
+![Dashboard](screenshots/dashboard.jpg)
 * Daily and monthly statistics with **CSV export**
+![Stats](screenshots/stats.jpg)
 * Optional **voice announcement** (disabled by default for privacy)
 * Light/Dark theme, French/English interface
+![Settings](settings.png)
 * Right to erasure: delete a person and all associated data
+
+
 
 ## Architecture
 
-```text
 [ Browser: React (frontend/dist, served by FastAPI) ]
         │  images (multipart)         ▲  JSON
         ▼                             │
@@ -154,7 +162,7 @@ frontend, **InsightFace buffalo_l** model (SCRFD face detection + ArcFace embedd
         │                             │
         ▼                             ▼
 [ SQLite attendance.db : persons / attendances / logs ]
-```
+
 
 * The browser captures the image (webcam or file) and sends it to the API.
 * The API detects faces, computes embeddings, compares them (cosine similarity,
@@ -233,3 +241,14 @@ after which **the entire application works offline**.
 * **PostgreSQL** database for centralized multi-site deployments
 * Administrator authentication + HTTPS
 
+
+
+
+
+## Support the Project
+
+If you find this project useful, you can:
+- ⭐ Star this repository
+- Fork it
+- ☕ Buy me a coffee
+It helps increase the project's visibility and supports future development.

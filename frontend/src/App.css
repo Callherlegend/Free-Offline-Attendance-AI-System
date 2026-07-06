@@ -1,6 +1,4 @@
-/* App.css — Attendance AI
-   Thème jour/nuit via variables CSS : le JS pose data-theme="dark" sur <html>,
-   et toutes les couleurs suivent automatiquement. */
+
 :root{
   --bg:#f1f5f9; --panel:#ffffff; --text:#0f172a; --muted:#64748b;
   --primary:#2563eb; --accent:#0891b2; --border:#e2e8f0;

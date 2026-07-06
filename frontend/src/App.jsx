@@ -1,21 +1,9 @@
-// ============================================================================
-// App.jsx — Attendance AI (interface finale)
-// Sidebar + 5 pages : Tableau de bord / Enrôler / Pointer / Statistiques / Paramètres
-// Fonctionnalités : mode auto, option photo, multi-visages, vocal opt-in,
-// thème jour/nuit, langue FR/EN, caméra IP, export CSV quotidien/mensuel.
-//
-// Documentation officielle :
-//   React hooks        : https://react.dev/reference/react
-//   getUserMedia       : https://developer.mozilla.org/docs/Web/API/MediaDevices/getUserMedia
-//   speechSynthesis    : https://developer.mozilla.org/docs/Web/API/SpeechSynthesis
-//   localStorage       : https://developer.mozilla.org/docs/Web/API/Window/localStorage
-// ============================================================================
 import { useState, useRef, useEffect } from "react";
 import "./App.css";
 
 const AUTO_INTERVAL_MS = 2500;
 
-// ---- i18n : un simple dictionnaire, t(clé) selon la langue active ----------
+//simple dictionnaire
 const TR = {
   fr: {
     dashboard: "Tableau de bord", enroll: "Enrôler", attend: "Pointer",
@@ -85,7 +73,7 @@ export default function App() {
 
   const t = k => TR[lang][k] || k;
 
-  // Thème : on pose data-theme sur <html>, le CSS fait le reste (variables).
+  // Thème(on pose data-theme sur <html>, le CSS fait le reste (variables))
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     localStorage.setItem("theme", theme);
@@ -186,7 +174,7 @@ export default function App() {
 
   return (
     <div className="layout">
-      {/* ---------------- Sidebar ---------------- */}
+      {/*  Sidebar  */}
       <aside>
         <h2 className="logo">Attendance&nbsp;AI</h2>
         {MENU.map(([p, icon]) => (
@@ -197,10 +185,10 @@ export default function App() {
         ))}
       </aside>
 
-      {/* ---------------- Contenu ---------------- */}
+      {/*  Contenu  */}
       <main>
         {/* La vidéo reste montée en permanence (le flux caméra survit aux
-            changements de page) ; on la cache hors Enrôler/Pointer. */}
+            changements de page) on la cache hors Enrôler/Pointer */}
         <video ref={videoRef} autoPlay playsInline
                style={{ display: (page === "enroll" || page === "attend") ? "block" : "none" }} />
 
