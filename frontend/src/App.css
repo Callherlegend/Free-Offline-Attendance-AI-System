@@ -1,0 +1,56 @@
+/* App.css — Attendance AI
+   Thème jour/nuit via variables CSS : le JS pose data-theme="dark" sur <html>,
+   et toutes les couleurs suivent automatiquement. */
+:root{
+  --bg:#f1f5f9; --panel:#ffffff; --text:#0f172a; --muted:#64748b;
+  --primary:#2563eb; --accent:#0891b2; --border:#e2e8f0;
+  --ok-bg:#dcfce7; --ko-bg:#fee2e2;
+}
+[data-theme="dark"]{
+  --bg:#0f172a; --panel:#1e293b; --text:#e2e8f0; --muted:#94a3b8;
+  --primary:#3b82f6; --accent:#06b6d4; --border:#334155;
+  --ok-bg:#14532d; --ko-bg:#7f1d1d;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--text)}
+
+.layout{display:flex;min-height:100vh}
+aside{width:210px;background:var(--panel);border-right:1px solid var(--border);
+      padding:16px 10px;display:flex;flex-direction:column;gap:6px}
+.logo{margin:0 0 14px 6px;font-size:19px;color:var(--primary)}
+.nav{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;
+     border:0;border-radius:8px;background:transparent;color:var(--text);
+     cursor:pointer;text-align:left;font-size:15px}
+.nav:hover{background:var(--bg)}
+.nav.active{background:var(--primary);color:#fff}
+
+main{flex:1;padding:22px;max-width:860px}
+video{width:100%;max-width:560px;border-radius:10px;background:#000;margin-bottom:12px}
+
+.card{background:var(--panel);border:1px solid var(--border);border-radius:10px;
+      padding:16px;margin-bottom:14px}
+.cards{display:flex;gap:12px;margin:14px 0;flex-wrap:wrap}
+.stat{flex:1;min-width:140px;background:var(--panel);border:1px solid var(--border);
+      border-radius:10px;padding:16px;text-align:center}
+.stat b{display:block;font-size:30px}
+.stat span{color:var(--muted);font-size:13px}
+.stat.ok b{color:#16a34a}.stat.ko b{color:#dc2626}
+
+button{padding:10px 16px;margin:4px;border:0;border-radius:8px;
+       background:var(--primary);color:#fff;cursor:pointer}
+.photo-btn{display:inline-block;padding:10px 16px;margin:4px;border-radius:8px;
+           background:var(--accent);color:#fff;cursor:pointer;text-decoration:none;font-size:14px}
+input,select{padding:9px;margin:4px;border:1px solid var(--border);border-radius:6px;
+             background:var(--bg);color:var(--text)}
+label{margin:0 10px;display:inline-block}
+small{color:var(--muted)}
+
+.res{padding:11px;border-radius:8px;margin:10px 0}
+.ok{background:var(--ok-bg)}.ko{background:var(--ko-bg)}
+.cols{display:flex;gap:20px;flex-wrap:wrap}
+.cols>div{flex:1;min-width:200px}
+ul{padding-left:4px}
+li{list-style:none;padding:5px 0;border-bottom:1px solid var(--border)}
+.faces li{border:0}
+h4{margin:10px 0 4px}
+.close{float:right;background:transparent;color:inherit;padding:0 4px;margin:0;font-size:15px}

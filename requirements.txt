@@ -1,0 +1,11 @@
+# --- API (main.py) ---
+fastapi
+uvicorn
+insightface
+onnxruntime
+python-multipart
+numpy
+opencv-python
+
+# --- Notebook uniquement (Colab) : scikit-learn, joblib, matplotlib, kaggle ---
+# (non requis pour faire tourner l'application)
