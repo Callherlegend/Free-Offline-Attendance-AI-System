@@ -19,7 +19,7 @@ modèle **InsightFace buffalo_l** (détection SCRFD + embeddings ArcFace), base 
 ![Stats](screenshots/stats.jpg)
 - Annonce vocale **optionnelle** (désactivée par défaut — confidentialité)
 - Thème jour/nuit, interface FR/EN
-![Settings](settings.jpg)
+![Settings](screenshots/settings.jpg)
 - Droit à l'effacement : suppression d'une personne et de toutes ses données
 
 ## Architecture
@@ -151,7 +151,7 @@ frontend, **InsightFace buffalo_l** model (SCRFD face detection + ArcFace embedd
 ![Stats](screenshots/stats.jpg)
 * Optional **voice announcement** (disabled by default for privacy)
 * Light/Dark theme, French/English interface
-![Settings](settings.jpg)
+![Settings](screenshots/settings.jpg)
 * Right to erasure: delete a person and all associated data
 
 
